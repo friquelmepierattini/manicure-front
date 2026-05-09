@@ -1,8 +1,7 @@
 // Service Worker para Mi Manicurista PWA
-const CACHE_NAME = 'mi-manicurista-v1'
+const CACHE_NAME = 'mi-manicurista-v2'
 const urlsToCache = [
   '/',
-  '/manifest.json',
 ]
 
 // Install event - cache files
@@ -35,6 +34,17 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') {
+    return
+  }
+
+  const requestUrl = new URL(event.request.url)
+
+  // Never cache cross-origin requests or Next build assets.
+  if (
+    requestUrl.origin !== self.location.origin ||
+    requestUrl.pathname.startsWith('/_next/') ||
+    requestUrl.pathname === '/manifest.json'
+  ) {
     return
   }
 

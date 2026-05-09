@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import logo1 from './assets/logo1.png'
 
@@ -10,11 +11,29 @@ interface Manicurist {
   location: string
   rating: number
   image: string
+  workplaceType: 'casa_particular' | 'departamento_particular' | 'empresa_establecida' | 'puesto_con_patente'
+}
+
+const workplaceTypeLabels: Record<Manicurist['workplaceType'], string> = {
+  casa_particular: 'Casa particular',
+  departamento_particular: 'Departamento particular',
+  empresa_establecida: 'Empresa establecida',
+  puesto_con_patente: 'Puesto con patente (permiso de salón)',
 }
 
 interface MenuItem {
   icon: string
   label: string
+}
+
+type UserRole = 'cliente' | 'profesional' | 'salon'
+
+interface StoredUser {
+  tipo: UserRole
+  nombre: string
+  apellido: string
+  email: string
+  password: string
 }
 
 const menuItems: MenuItem[] = [
@@ -32,6 +51,7 @@ const manicurists: Manicurist[] = [
     location: 'Santiago',
     rating: 4.8,
     image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371',
+    workplaceType: 'casa_particular',
   },
   {
     id: 2,
@@ -39,6 +59,7 @@ const manicurists: Manicurist[] = [
     location: 'Providencia',
     rating: 4.9,
     image: 'https://images.unsplash.com/photo-1610992015732-2449b76344bc',
+    workplaceType: 'departamento_particular',
   },
   {
     id: 3,
@@ -46,6 +67,7 @@ const manicurists: Manicurist[] = [
     location: 'Las Condes',
     rating: 4.9,
     image: 'https://images.unsplash.com/photo-1595777707802-e2e7d1b0d122',
+    workplaceType: 'empresa_establecida',
   },
   {
     id: 4,
@@ -53,6 +75,7 @@ const manicurists: Manicurist[] = [
     location: 'Ñuñoa',
     rating: 4.7,
     image: 'https://images.unsplash.com/photo-1599599810694-f3f8f3201f54',
+    workplaceType: 'puesto_con_patente',
   },
 ]
 
@@ -130,6 +153,9 @@ const Card = ({ manicurist }: { manicurist: Manicurist }) => (
     <div className="card-body">
       <h3>{manicurist.name}</h3>
       <p>{manicurist.location}</p>
+      <p className="workplace-detail">
+        Dónde atiende: <span>{workplaceTypeLabels[manicurist.workplaceType]}</span>
+      </p>
       <span>⭐ {manicurist.rating}</span>
     </div>
   </div>
@@ -250,17 +276,196 @@ const OptionCard = ({
   icon,
   title,
   description,
+  onClick,
 }: {
   icon: string
   title: string
   description: string
+  onClick?: () => void
 }) => (
-  <div className="option-card">
+  <div className="option-card" onClick={onClick} role="button" tabIndex={0}>
     <div className="icon">{icon}</div>
     <h3>{title}</h3>
     <p>{description}</p>
   </div>
 )
+
+const roleLabels: Record<UserRole, string> = {
+  cliente: 'Cliente',
+  profesional: 'Profesional',
+  salon: 'Salón',
+}
+
+const roleRoute: Partial<Record<UserRole, string>> = {
+  profesional: '/perfil-profesional',
+}
+
+const AuthModal = ({
+  open,
+  mode,
+  role,
+  onClose,
+}: {
+  open: boolean
+  mode: 'login' | 'register'
+  role: UserRole
+  onClose: () => void
+}) => {
+  const router = useRouter()
+  const [currentMode, setCurrentMode] = React.useState<'login' | 'register'>(mode)
+  const [nombre, setNombre] = React.useState('')
+  const [apellido, setApellido] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [error, setError] = React.useState('')
+
+  React.useEffect(() => {
+    if (open) {
+      setCurrentMode(mode)
+      setNombre('')
+      setApellido('')
+      setEmail('')
+      setPassword('')
+      setError('')
+    }
+  }, [open, mode, role])
+
+  if (!open) return null
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    const stored = localStorage.getItem('mimanicure_user')
+    if (!stored) {
+      setError('No existe una cuenta registrada. Crea una primero.')
+      return
+    }
+
+    try {
+      const user = JSON.parse(stored) as StoredUser
+      const emailOk = user.email.trim().toLowerCase() === email.trim().toLowerCase()
+      const passwordOk = user.password === password
+      const roleOk = user.tipo === role
+
+      if (!emailOk || !passwordOk || !roleOk) {
+        setError('Datos incorrectos para este perfil.')
+        return
+      }
+
+      const route = roleRoute[role]
+      onClose()
+      if (route) {
+        router.push(route)
+      }
+    } catch {
+      setError('No se pudo iniciar sesión. Intenta nuevamente.')
+    }
+  }
+
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    if (!nombre || !apellido || !email || !password) {
+      setError('Completa todos los campos.')
+      return
+    }
+
+    const payload: StoredUser = {
+      tipo: role,
+      nombre,
+      apellido,
+      email,
+      password,
+    }
+
+    localStorage.setItem('mimanicure_user', JSON.stringify(payload))
+    setCurrentMode('login')
+  }
+
+  return (
+    <div className="auth-modal-backdrop" onClick={onClose}>
+      <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="auth-close" onClick={onClose} aria-label="Cerrar">
+          ✕
+        </button>
+
+        <h3>{currentMode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}</h3>
+        <p className="auth-subtitle">Perfil seleccionado: {roleLabels[role]}</p>
+
+        <div className="auth-switch">
+          <button
+            className={currentMode === 'login' ? 'active' : ''}
+            onClick={() => setCurrentMode('login')}
+            type="button"
+          >
+            Ingresar
+          </button>
+          <button
+            className={currentMode === 'register' ? 'active' : ''}
+            onClick={() => setCurrentMode('register')}
+            type="button"
+          >
+            Registrarme
+          </button>
+        </div>
+
+        {currentMode === 'login' ? (
+          <form className="auth-form" onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Correo"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error ? <p className="auth-error">{error}</p> : null}
+            <button type="submit" className="auth-submit">
+              Entrar
+            </button>
+          </form>
+        ) : (
+          <form className="auth-form" onSubmit={handleRegister}>
+            <input
+              type="text"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Apellido"
+              value={apellido}
+              onChange={(e) => setApellido(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Correo"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error ? <p className="auth-error">{error}</p> : null}
+            <button type="submit" className="auth-submit">
+              Crear cuenta
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  )
+}
 
 const HowItWorks = () => (
   <section className="how-it-works">
@@ -415,6 +620,16 @@ const Footer = () => (
 )
 
 function App() {
+  const [authOpen, setAuthOpen] = React.useState(false)
+  const [authMode, setAuthMode] = React.useState<'login' | 'register'>('login')
+  const [selectedRole, setSelectedRole] = React.useState<UserRole>('cliente')
+
+  const openAuth = (role: UserRole) => {
+    setSelectedRole(role)
+    setAuthMode('login')
+    setAuthOpen(true)
+  }
+
   return (
     <div className="container">
       {/* HEADER CON LOGOS */}
@@ -425,10 +640,32 @@ function App() {
 
       {/* OPCIONES */}
       <div className="options">
-        <OptionCard icon="💅" title="Soy Manicurista" description="Publica tus servicios" />
-        <OptionCard icon="💖" title="Soy Cliente" description="Encuentra profesionales" />
-        <OptionCard icon="🏢" title="Soy Salón" description="Administra tu negocio" />
+        <OptionCard
+          icon="💅"
+          title="Soy Manicurista"
+          description="Publica tus servicios"
+          onClick={() => openAuth('profesional')}
+        />
+        <OptionCard
+          icon="💖"
+          title="Soy Cliente"
+          description="Encuentra profesionales"
+          onClick={() => openAuth('cliente')}
+        />
+        <OptionCard
+          icon="🏢"
+          title="Soy Salón"
+          description="Administra tu negocio"
+          onClick={() => openAuth('salon')}
+        />
       </div>
+
+      <AuthModal
+        open={authOpen}
+        mode={authMode}
+        role={selectedRole}
+        onClose={() => setAuthOpen(false)}
+      />
 
       {/* GALERÍA DE SERVICIOS */}
       <ServiceGallery />

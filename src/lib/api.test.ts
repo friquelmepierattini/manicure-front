@@ -69,4 +69,24 @@ describe('apiFetch', () => {
 
     await expect(apiFetch('/users')).rejects.toThrow('Request failed with status 500')
   })
+
+  it('forwards RequestInit options and omits body when undefined', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }),
+    )
+    global.fetch = fetchMock as unknown as typeof fetch
+
+    await apiFetch('/profile', {
+      credentials: 'include',
+    })
+
+    const [, requestOptions] = fetchMock.mock.calls[0]
+    expect(requestOptions).toEqual(
+      expect.objectContaining({
+        method: 'GET',
+        credentials: 'include',
+      }),
+    )
+    expect(requestOptions.body).toBeUndefined()
+  })
 })

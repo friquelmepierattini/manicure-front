@@ -3,12 +3,14 @@ import globals from 'globals'
 import nextPlugin from '@next/eslint-plugin-next'
 import reactHooks from 'eslint-plugin-react-hooks'
 import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { defineConfig } from 'eslint/config'
 
 const { flatConfig: nextFlatConfig } = nextPlugin
 
 export default defineConfig([
-  globalIgnores(['dist', '.next']),
+  {
+    ignores: ['dist/**', '.next/**', 'next-env.d.ts'],
+  },
   nextFlatConfig.recommended,
   nextFlatConfig.coreWebVitals,
   {

@@ -2,6 +2,12 @@ import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import App from './App'
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+  }),
+}))
+
 vi.mock('next/image', () => ({
   default: ({
     src,
