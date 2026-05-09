@@ -2,7 +2,6 @@
 const CACHE_NAME = 'mi-manicurista-v1'
 const urlsToCache = [
   '/',
-  '/index.html',
   '/manifest.json',
 ]
 

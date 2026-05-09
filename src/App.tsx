@@ -1,6 +1,7 @@
-import './App.css'
+'use client'
+
+import Image from 'next/image'
 import React from 'react'
-import logo from './assets/logo.png'
 import logo1 from './assets/logo1.png'
 
 interface Manicurist {
@@ -117,7 +118,15 @@ const RightSidebar = () => (
 
 const Card = ({ manicurist }: { manicurist: Manicurist }) => (
   <div className="card">
-    <img src={manicurist.image} alt={manicurist.name} className="card-img" />
+    <div className="card-img-wrapper">
+      <Image
+        src={manicurist.image}
+        alt={manicurist.name}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+        className="card-img"
+      />
+    </div>
     <div className="card-body">
       <h3>{manicurist.name}</h3>
       <p>{manicurist.location}</p>
@@ -129,16 +138,24 @@ const Card = ({ manicurist }: { manicurist: Manicurist }) => (
 /* 🔥 HERO MEJORADO */
 const HeroSection = () => (
   <section className="hero-section">
-    <img
-      src="https://images.unsplash.com/photo-1604654894610-df63bc536371"
-      alt="Hero 1"
-      className="hero-img hero-img-animated"
-    />
-    <img
-      src="https://images.unsplash.com/photo-1610992015732-2449b76344bc"
-      alt="Hero 2"
-      className="hero-img hero-img-animated-delay"
-    />
+    <div className="hero-img-wrapper hero-img-animated">
+      <Image
+        src="https://images.unsplash.com/photo-1604654894610-df63bc536371"
+        alt="Hero 1"
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="hero-img"
+      />
+    </div>
+    <div className="hero-img-wrapper hero-img-animated-delay">
+      <Image
+        src="https://images.unsplash.com/photo-1610992015732-2449b76344bc"
+        alt="Hero 2"
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="hero-img"
+      />
+    </div>
   </section>
 )
 
@@ -211,7 +228,13 @@ const ServiceGallery = () => {
         {filtered.map((item, index) => (
           <div key={item.id} className="gallery-item" style={{ animationDelay: `${index * 0.1}s` }}>
             <div className="gallery-img-wrapper">
-              <img src={item.image} alt={item.title} />
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                className="gallery-img"
+              />
               <div className="gallery-overlay">
                 <span className="gallery-title">{item.title}</span>
               </div>
@@ -339,7 +362,14 @@ const HeaderBranding = () => (
     <div className="logos-container">
       <div className="logo-wrapper main-logo-wrapper">
         <div className="logo-gradient-bg"></div>
-        <img src={logo1} alt="Mi Manicurista Logo Principal" className="logo logo-main" />
+        <Image
+          src={logo1}
+          alt="Mi Manicurista Logo Principal"
+          className="logo logo-main"
+          width={240}
+          height={240}
+          priority
+        />
       </div>
     </div>
     <h1>Siéntete Increíble 💅</h1>
