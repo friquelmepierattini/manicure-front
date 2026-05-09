@@ -121,7 +121,7 @@ const RightSidebar = ({ onRegisterClick }: { onRegisterClick: () => void }) => {
     </div>
 
     {/* Populares */}
-    <div className="bg-gradient-to-br from-rose-50/80 to-pink-50 rounded-2xl p-4 border border-rose-100 shadow-sm">
+    <div className="bg-gradient-to-br from-rose-50/80 to-fuchsia-50 rounded-2xl p-4 border border-rose-200 shadow-sm">
       <h3 className="text-[11px] font-extrabold text-[#b83263] uppercase tracking-widest mb-3">Populares</h3>
       {popularesItems.map(s => (
         <div
@@ -594,29 +594,31 @@ const LoginModal = ({ isOpen, onClose, onOpenRegister, initialTipo }: { isOpen: 
   return (
     <>
       <div className="fixed inset-0 bg-black/40 z-[1000] backdrop-blur-sm" onClick={handleClose} />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl z-[1001] max-w-[560px] w-[92%] overflow-hidden">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1001] w-[92%] max-w-[760px] overflow-hidden rounded-[30px] border border-[#edd8e3] bg-white shadow-[0_30px_80px_rgba(0,0,0,0.24)]">
         <button
-          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-pink-100 text-pink-500 font-bold flex items-center justify-center hover:bg-pink-200 transition z-10 border-none cursor-pointer text-lg"
+          className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-white/95 text-[#b73f6d] text-xl font-light shadow-sm transition hover:bg-[#fff4f9] hover:text-[#9f3c68] border-none cursor-pointer"
           onClick={handleClose}
         >✕</button>
 
         {!tipo ? (
           <>
-            <div className="bg-gradient-to-br from-pink-300 via-pink-400 to-pink-500 text-white text-center px-8 pt-8 pb-7">
-              <p className="text-xs font-extrabold uppercase tracking-widest opacity-90 mb-3">Mi Manicurista</p>
-              <h2 className="text-3xl font-extrabold tracking-tight leading-tight mb-1">Iniciar Sesión</h2>
-              <p className="text-sm opacity-90">¿Cómo quieres ingresar?</p>
+            <div className="relative overflow-hidden bg-gradient-to-br from-[#f7c8de] via-[#f15faf] to-[#d92b7f] text-white text-center px-8 pt-10 pb-9">
+              <div className="pointer-events-none absolute -top-16 -left-12 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-20 -right-8 h-44 w-44 rounded-full bg-[#ff7fc2]/20 blur-3xl" />
+              <p className="relative text-[11px] font-bold uppercase tracking-[0.28em] opacity-90 mb-3">Mi Manicurista</p>
+              <h2 className="relative text-[2.35rem] md:text-[2.8rem] font-extrabold tracking-[-0.03em] leading-none mb-3">Iniciar Sesión</h2>
+              <p className="relative text-sm md:text-base opacity-90">Elige cómo quieres acceder a tu cuenta</p>
             </div>
-            <div className="flex gap-2.5 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-6 md:p-7 bg-gradient-to-b from-white to-[#fff7fb]">
               {loginTipos.map(t => (
                 <button
                   key={t.tipo}
                   onClick={() => setTipo(t.tipo)}
-                  className="flex-1 flex flex-col items-center justify-center gap-2 py-6 px-3 bg-white border-2 border-pink-100 rounded-[20px] cursor-pointer text-center transition-all hover:bg-pink-50/50 hover:border-[#e91e63] hover:-translate-y-1 hover:shadow-xl shadow-[0_3px_12px_rgba(0,0,0,0.05)] font-sans"
+                  className="group flex flex-col items-center justify-center gap-3 rounded-[22px] border border-[#efd9e3] bg-white px-4 py-6 text-center shadow-[0_10px_24px_rgba(183,50,99,0.08)] transition-all hover:-translate-y-1 hover:border-[#cf7ea1] hover:bg-gradient-to-br hover:from-[#fff8fb] hover:to-[#ffeaf2] hover:shadow-[0_16px_30px_rgba(183,50,99,0.14)]"
                 >
-                  <span className="text-[2.6rem] leading-none">{t.emoji}</span>
-                  <strong className="text-[0.92rem] font-extrabold text-gray-800">{t.label}</strong>
-                  <p className="text-[0.75rem] text-[#bbb] m-0 leading-snug">{t.desc}</p>
+                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ffe1ed] to-[#f8b8d2] text-[2rem] shadow-[0_10px_18px_rgba(183,50,99,0.12)] transition-transform group-hover:scale-[1.03]">{t.emoji}</span>
+                  <strong className="text-[1rem] font-extrabold tracking-[-0.01em] text-[#2f2433]">{t.label}</strong>
+                  <p className="m-0 text-[0.82rem] leading-snug text-[#7c6875]">{t.desc}</p>
                 </button>
               ))}
             </div>
@@ -624,53 +626,55 @@ const LoginModal = ({ isOpen, onClose, onOpenRegister, initialTipo }: { isOpen: 
         ) : (
           <>
             <button
-              className="absolute top-[72px] left-5 text-white/80 font-semibold text-sm hover:text-white transition bg-transparent border-none cursor-pointer z-10"
+              className="absolute left-6 top-[84px] z-10 bg-white/20 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-white/30 rounded-full border-none cursor-pointer"
               onClick={() => { setTipo(null); setError('') }}
             >← Volver</button>
-            <div className="bg-gradient-to-br from-pink-300 via-pink-400 to-pink-500 text-white text-center px-8 pt-8 pb-7">
-              <p className="text-xs font-extrabold uppercase tracking-widest opacity-90 mb-3">{tipoInfo?.emoji} {tipoInfo?.label}</p>
-              <h2 className="text-3xl font-extrabold tracking-tight leading-tight mb-1">Inicia Sesión</h2>
-              <p className="text-sm opacity-90">Accede a tu cuenta</p>
+            <div className="relative overflow-hidden bg-gradient-to-br from-[#f7c8de] via-[#f15faf] to-[#d92b7f] text-white text-center px-8 pt-10 pb-9">
+              <div className="pointer-events-none absolute -top-16 -left-12 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-20 -right-8 h-44 w-44 rounded-full bg-[#ff7fc2]/20 blur-3xl" />
+              <p className="relative text-[11px] font-bold uppercase tracking-[0.28em] opacity-90 mb-3">{tipoInfo?.emoji} {tipoInfo?.label}</p>
+              <h2 className="relative text-[2.15rem] md:text-[2.55rem] font-extrabold tracking-[-0.03em] leading-none mb-3">Inicia Sesión</h2>
+              <p className="relative text-sm md:text-base opacity-90">Accede a tu cuenta de forma segura</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="px-8 py-6 flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="px-7 md:px-8 py-7 flex flex-col gap-4 bg-gradient-to-b from-white to-[#fff7fb]">
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-gray-600">📧 Correo</label>
+                <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#8c7282]">Correo</label>
                 <input
                   type="email" placeholder="tu@correo.com" value={email}
                   onChange={(e) => { setEmail(e.target.value); setError('') }} required
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-pink-100 transition bg-white font-sans"
+                  className="w-full rounded-2xl border border-[#e9d7e1] bg-white px-4 py-3.5 text-sm text-[#2f2433] placeholder:text-[#b49aa8] shadow-sm transition focus:outline-none focus:border-[#c9658f] focus:ring-4 focus:ring-[#f4cfe0]/70"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-gray-600">🔐 Contraseña</label>
+                <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#8c7282]">Contraseña</label>
                 <input
                   type="password" placeholder="Tu contraseña" value={password}
                   onChange={(e) => { setPassword(e.target.value); setError('') }} required
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-pink-100 transition bg-white font-sans"
+                  className="w-full rounded-2xl border border-[#e9d7e1] bg-white px-4 py-3.5 text-sm text-[#2f2433] placeholder:text-[#b49aa8] shadow-sm transition focus:outline-none focus:border-[#c9658f] focus:ring-4 focus:ring-[#f4cfe0]/70"
                 />
               </div>
 
               {error === '__no_account__' ? (
-                <div className="bg-pink-50 rounded-xl p-4 flex flex-col gap-2">
-                  <p className="text-sm text-gray-600">No hay ninguna cuenta registrada aún.</p>
-                  <button type="button" className="font-bold text-[#e91e63] hover:underline text-left bg-transparent border-none cursor-pointer text-sm" onClick={() => { handleClose(); onOpenRegister() }}>
+                <div className="rounded-2xl border border-[#f2d7e3] bg-[#fff4f9] p-4 flex flex-col gap-2 shadow-sm">
+                  <p className="text-sm text-[#6f5a67]">No hay ninguna cuenta registrada aún.</p>
+                  <button type="button" className="text-left text-sm font-bold text-[#b73f6d] hover:text-[#9f3c68] bg-transparent border-none cursor-pointer" onClick={() => { handleClose(); onOpenRegister() }}>
                     Crear una cuenta ahora →
                   </button>
                 </div>
               ) : error ? (
-                <div className="bg-red-50 border border-red-100 rounded-xl p-3">
-                  <p className="text-sm text-red-600">{error}</p>
+                <div className="rounded-2xl border border-[#f3c8cf] bg-[#fff3f5] p-3 shadow-sm">
+                  <p className="text-sm text-[#b84058]">{error}</p>
                 </div>
               ) : null}
 
-              <button type="submit" className="w-full bg-gradient-to-r from-pink-400 to-[#e91e63] text-white font-extrabold py-4 rounded-2xl text-base shadow-lg hover:opacity-90 hover:-translate-y-0.5 transition-all mt-1 border-none cursor-pointer">
+              <button type="submit" className="w-full rounded-2xl border border-[#ab3e67] bg-gradient-to-r from-[#d55b86] via-[#c74372] to-[#ab3e67] py-4 text-base font-extrabold text-white shadow-[0_14px_28px_rgba(183,50,99,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_34px_rgba(183,50,99,0.34)] border-none cursor-pointer mt-1">
                 Ingresar
               </button>
             </form>
 
-            <div className="px-8 pb-6 text-center text-sm text-gray-500">
-              <p>¿No tienes cuenta? <button className="font-semibold text-[#e91e63] hover:underline border-none bg-transparent cursor-pointer" onClick={() => { handleClose(); onOpenRegister() }}>Regístrate aquí</button></p>
+            <div className="px-8 pb-7 text-center text-sm text-[#6f5a67] bg-gradient-to-b from-[#fff7fb] to-white">
+              <p>¿No tienes cuenta? <button className="font-semibold text-[#b73f6d] hover:text-[#9f3c68] hover:underline border-none bg-transparent cursor-pointer" onClick={() => { handleClose(); onOpenRegister() }}>Regístrate aquí</button></p>
             </div>
           </>
         )}
