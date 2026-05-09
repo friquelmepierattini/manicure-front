@@ -39,17 +39,20 @@ const menuItems: MenuItem[] = [
 ]
 
 const Sidebar = ({ onMenuClick }: { onMenuClick: (label: string) => void }) => (
-  <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[140px] bg-gradient-to-b from-rose-50 via-pink-50 to-white backdrop-blur-md flex-col items-center py-6 px-2.5 gap-3 border-r border-rose-100 shadow-[0_18px_40px_rgba(183,50,99,0.10)] z-[200] overflow-y-auto">
-    <h4 className="text-[10px] text-[#b83263] uppercase tracking-[2px] font-bold font-sans">Menú</h4>
-    <ul className="list-none w-full flex flex-col gap-2 p-0 m-0">
+  <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[164px] bg-gradient-to-b from-[#fff7fb] via-[#ffeef6] to-[#ffffff] backdrop-blur-md flex-col items-stretch py-5 px-3.5 gap-3 border-r border-[#e9d2de] shadow-[0_18px_40px_rgba(183,50,99,0.10)] z-[200] overflow-y-auto">
+    <div className="w-full px-1.5">
+      <div className="rounded-[14px] border border-[#efcddb] bg-gradient-to-r from-white to-[#fff0f7] px-3.5 py-2 text-center text-[10px] font-extrabold uppercase tracking-[0.26em] text-[#b23d6a] shadow-sm">Menú</div>
+    </div>
+    <ul className="list-none w-full flex flex-col gap-2.5 p-0 m-0">
       {menuItems.map((item) => (
         <li
           key={item.label}
           onClick={() => onMenuClick(item.label)}
-          className="flex flex-col items-center justify-center gap-1 h-[98px] w-full text-[11px] font-semibold text-[#4a3b4a] bg-gradient-to-br from-white to-rose-50/70 border border-rose-100 rounded-[20px] cursor-pointer shadow-[0_8px_20px_rgba(183,50,99,0.10)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:text-[#b83263] hover:bg-gradient-to-br hover:from-rose-50 hover:to-pink-100/70 hover:border-rose-200 hover:shadow-[0_14px_32px_rgba(183,50,99,0.18)]"
+          className="group relative flex flex-col items-center justify-center gap-1.5 h-[84px] w-full text-[12px] font-semibold text-[#5b4756] bg-gradient-to-br from-white via-[#fff8fb] to-[#fff0f6] border border-[#efd9e3] rounded-[14px] cursor-pointer shadow-[0_8px_18px_rgba(183,50,99,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(183,50,99,0.16)] hover:border-[#c9658f] hover:from-[#fff7fa] hover:via-[#ffeaf2] hover:to-[#ffdce9]"
         >
-          <span className="text-[26px] mb-0.5 transition-transform group-hover:scale-110">{item.icon}</span>
-          {item.label}
+          <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-gradient-to-b from-[#f0bfd4] via-[#d16b98] to-[#9f3c68] opacity-0 transition-opacity group-hover:opacity-100" />
+          <span className="text-[20px] leading-none transition-transform group-hover:scale-105 group-hover:drop-shadow-[0_2px_4px_rgba(183,50,99,0.12)]">{item.icon}</span>
+          <span className="leading-none text-[11px] tracking-[0.04em] text-center transition-colors group-hover:text-[#a93a65]">{item.label}</span>
         </li>
       ))}
     </ul>
@@ -223,28 +226,42 @@ const ServiceGallery = () => {
   ]
 
   return (
-    <section className="px-1">
-      <h2 className="text-2xl font-bold text-[#2a1f2f] mb-1">Galería de Nuestros Servicios</h2>
-      <p className="text-sm text-gray-400 mb-5">Explora nuestro portafolio de trabajos profesionales</p>
-      <div className="flex flex-wrap gap-2 mb-6">
+    <section className="relative overflow-hidden rounded-[30px] border border-[#ead3df] bg-gradient-to-br from-[#fff8fc] via-[#fffdfd] to-[#ffe9f3] px-4 md:px-6 py-6 shadow-[0_16px_34px_rgba(183,50,99,0.10)]">
+      <div className="pointer-events-none absolute -top-16 -left-10 h-40 w-40 rounded-full bg-gradient-to-br from-[#f7c9dd]/35 to-[#ffeef6]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-14 -right-10 h-44 w-44 rounded-full bg-gradient-to-tr from-[#ebb4cf]/30 to-[#ffddea]/10 blur-3xl" />
+
+      <div className="relative mb-7">
+        <span className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/90 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#b73f6d] shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#e58bb0]" />
+          Portfolio
+        </span>
+        <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-transparent bg-clip-text bg-gradient-to-r from-[#2f2433] via-[#7a3158] to-[#b73f6d]">
+          Galería de Nuestros Servicios
+        </h2>
+        <p className="mt-2 text-sm text-[#755d6c] max-w-2xl">Explora nuestro portafolio de trabajos profesionales, con inspiración real y resultados visibles.</p>
+      </div>
+
+      <div className="relative flex flex-wrap gap-2 mb-6">
         {filters.map(f => (
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-full text-xs font-semibold border-2 transition-all cursor-pointer ${filter === f.key ? 'border-[#b83263] bg-[#c74372] text-white shadow-md' : 'border-rose-100 text-gray-600 bg-white hover:border-rose-300 hover:text-[#b83263]'}`}
-          >{f.label}</button>
+            className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all cursor-pointer shadow-sm ${filter === f.key ? 'border-[#b83263] bg-gradient-to-r from-[#d96a95] to-[#b83263] text-white shadow-[0_10px_18px_rgba(183,50,99,0.18)]' : 'border-[#ecd7e1] text-[#695565] bg-white/90 hover:border-[#d98aaf] hover:text-[#b83263] hover:bg-[#fff7fb]'}`}
+          >
+            {f.label}
+          </button>
         ))}
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="relative grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
         {filtered.map((item, index) => (
-          <div key={item.id} className="rounded-2xl overflow-hidden group cursor-pointer shadow-sm border border-rose-100/70" style={{ animationDelay: `${index * 0.1}s` }}>
+          <article key={item.id} className="group rounded-[22px] overflow-hidden cursor-pointer border border-[#eddbe4] bg-white shadow-[0_8px_20px_rgba(183,50,99,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(183,50,99,0.16)]" style={{ animationDelay: `${index * 0.08}s` }}>
             <div className="relative">
-              <img src={item.image} alt={item.title} className="w-full aspect-[4/3] object-cover object-center transition-transform duration-300 group-hover:scale-[1.04]" />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-1.5">
-                <span className="text-white text-[10px] font-semibold leading-tight line-clamp-1">{item.title}</span>
+              <img src={item.image} alt={item.title} className="w-full aspect-[4/3] object-cover object-center transition-transform duration-500 group-hover:scale-[1.06]" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent px-3 py-2.5">
+                <span className="inline-flex max-w-full rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold leading-none text-[#412d3a] shadow-sm backdrop-blur-sm">{item.title}</span>
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
@@ -294,22 +311,37 @@ const HowItWorks = () => {
   ]
   const current = active !== null ? steps[active] : null
   return (
-  <section className="py-10 px-4">
-    <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">¿Cómo funciona? 🤔</h2>
-    <div className="flex items-center justify-center gap-4 flex-wrap">
-      {steps.map((s, i) => (
-        <React.Fragment key={s.step}>
-          {i > 0 && <span className="text-2xl text-pink-300 font-bold hidden sm:block">→</span>}
-          <div
-            onClick={() => setActive(i)}
-            className="flex flex-col items-center gap-3 bg-white rounded-2xl px-6 py-7 w-[160px] cursor-pointer transition-all shadow-[0_4px_20px_rgba(233,30,99,0.08)] border border-pink-100 hover:shadow-[0_8px_30px_rgba(233,30,99,0.15)] hover:-translate-y-1 hover:border-pink-200"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-50 to-rose-100 border border-pink-100 flex items-center justify-center text-2xl shadow-sm">{s.icon}</div>
-            <h3 className="font-bold text-gray-800 text-sm">{s.step}</h3>
-            <p className="text-[11px] text-gray-400 text-center leading-relaxed">{s.desc}</p>
+  <section className="py-12 px-4 rounded-[30px] border border-rose-100 bg-gradient-to-br from-[#fff7fb] via-[#fffdfd] to-[#fff1f7] shadow-[0_14px_34px_rgba(183,50,99,0.10)]">
+    <div className="text-center mb-9">
+      <span className="inline-flex rounded-full border border-rose-200 bg-white/90 px-4 py-1.5 text-[11px] font-bold tracking-[0.14em] uppercase text-[#b83263]">Proceso simple</span>
+      <h2 className="text-3xl font-bold text-[#2a1f2f] mt-3">¿Cómo funciona? 🤔</h2>
+      <p className="text-sm text-[#6f5a67] mt-2">Tres pasos claros para reservar en minutos</p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch max-w-5xl mx-auto relative">
+      {steps.map((s, i) => {
+        const stepNumber = s.step.split('.')[0]
+        const stepTitle = s.step.split('. ')[1]
+
+        return (
+          <div key={s.step} className="relative">
+            {i < steps.length - 1 && (
+              <span className="hidden md:flex absolute top-[46%] -right-5 z-10 text-[#d77ba5] text-2xl font-bold">→</span>
+            )}
+            <div
+              onClick={() => setActive(i)}
+              className="h-full flex flex-col items-center text-center gap-3.5 bg-white rounded-[24px] px-6 py-8 cursor-pointer transition-all border border-rose-100 shadow-[0_8px_20px_rgba(183,50,99,0.10)] hover:shadow-[0_16px_30px_rgba(183,50,99,0.18)] hover:-translate-y-1.5 hover:border-rose-200"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ffe6f0] to-[#ffd6e7] border border-rose-200 flex items-center justify-center text-3xl shadow-sm">{s.icon}</div>
+              <div className="flex items-center gap-2">
+                <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-gradient-to-r from-[#d25986] to-[#b83263] text-white text-xs font-bold">{stepNumber}</span>
+                <h3 className="font-bold text-[#2f2433] text-2xl">{stepTitle}</h3>
+              </div>
+              <p className="text-lg text-[#6f5a67] leading-relaxed max-w-[22ch]">{s.desc}</p>
+            </div>
           </div>
-        </React.Fragment>
-      ))}
+        )
+      })}
     </div>
 
     {/* Modal popup */}
@@ -317,15 +349,15 @@ const HowItWorks = () => {
       <div className="fixed inset-0 z-[200] flex items-center justify-center px-6" onClick={() => setActive(null)}>
         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
         <div
-          className="relative bg-white rounded-3xl shadow-2xl p-7 max-w-xs w-full flex flex-col items-center gap-4 border border-pink-100"
+          className="relative bg-white rounded-3xl shadow-2xl p-7 max-w-xs w-full flex flex-col items-center gap-4 border border-rose-100"
           onClick={e => e.stopPropagation()}
         >
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-50 to-rose-100 border border-pink-100 flex items-center justify-center text-3xl shadow-sm">{current.icon}</div>
-          <h3 className="font-bold text-gray-800 text-lg text-center">{current.step}</h3>
-          <p className="text-gray-500 text-sm text-center leading-relaxed">{current.detail}</p>
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-100 to-pink-200 border border-rose-200 flex items-center justify-center text-3xl shadow-sm">{current.icon}</div>
+          <h3 className="font-bold text-[#2f2433] text-lg text-center">{current.step}</h3>
+          <p className="text-[#6f5a67] text-sm text-center leading-relaxed">{current.detail}</p>
           <button
             onClick={() => setActive(null)}
-            className="mt-1 w-full bg-gradient-to-r from-pink-400 to-[#e91e63] text-white font-bold py-2.5 rounded-2xl text-sm border-none cursor-pointer hover:opacity-90 transition"
+            className="mt-1 w-full bg-gradient-to-r from-[#d25986] to-[#b83263] text-white font-bold py-2.5 rounded-2xl text-sm border-none cursor-pointer hover:opacity-90 transition"
           >Entendido</button>
         </div>
       </div>
@@ -335,42 +367,81 @@ const HowItWorks = () => {
 }
 
 const Benefits = () => (
-  <section className="py-10 px-4 bg-gradient-to-br from-pink-50/80 via-white to-fuchsia-50/50 rounded-3xl my-6 border border-pink-100">
-    <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">¿Por qué elegirnos, po?</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+  <section className="relative py-12 px-4 md:px-7 rounded-[32px] my-8 overflow-hidden border border-[#ead3df] bg-gradient-to-br from-[#fff7fb] via-[#fffdfd] to-[#ffe9f3] shadow-[0_16px_34px_rgba(183,50,99,0.11)]">
+    <div className="pointer-events-none absolute -top-14 -left-10 h-40 w-40 rounded-full bg-gradient-to-br from-[#f7c9dd]/40 to-[#ffedf5]/10 blur-3xl" />
+    <div className="pointer-events-none absolute -bottom-16 -right-8 h-44 w-44 rounded-full bg-gradient-to-tr from-[#ebb4cf]/35 to-[#ffddea]/10 blur-3xl" />
+
+    <div className="relative text-center mb-10">
+      <span className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/90 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#b73f6d] shadow-sm">
+        <span className="w-2 h-2 rounded-full bg-[#e58bb0]" />
+        Ventajas
+      </span>
+      <h2 className="mt-4 text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-transparent bg-clip-text bg-gradient-to-r from-[#2f2433] via-[#7a3158] to-[#b73f6d]">
+        ¿Por qué elegirnos?
+      </h2>
+      <p className="mt-3 text-sm text-[#755d6c]">Una experiencia cuidada, con confianza, claridad y reservas simples.</p>
+    </div>
+
+    <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
       {[
         { icon: '✅', title: 'Profesionales de confianza', desc: 'Todas las profesionales están verificadas y con experiencia comprobada' },
         { icon: '💰', title: 'Precios sin sorpresas', desc: 'Compara precios reales y elige la opción que más te acomoda al bolsillo' },
         { icon: '🔒', title: '100% Seguro', desc: 'Tus datos están protegidos y los pagos son seguros, no hay drama' },
         { icon: '⚡', title: 'Reservas al instante', desc: 'Confirmas tu hora en tiempo real, sin esperar que te llamen de vuelta' },
-      ].map(b => (
-        <div key={b.title} className="flex flex-col items-center text-center gap-2 p-4 bg-white rounded-2xl shadow-md border border-pink-100 hover:shadow-xl hover:-translate-y-1 transition-all hover:border-pink-200">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-100 via-rose-100 to-fuchsia-100 flex items-center justify-center text-2xl shadow-sm">{b.icon}</div>
-          <h3 className="font-bold text-gray-800 text-sm">{b.title}</h3>
-          <p className="text-xs text-gray-500 leading-relaxed">{b.desc}</p>
-        </div>
+      ].map((b, index) => (
+        <article key={b.title} className="group relative overflow-hidden rounded-[24px] border border-[#eddbe4] bg-white/88 backdrop-blur-sm p-6 text-center shadow-[0_10px_22px_rgba(183,50,99,0.10)] hover:shadow-[0_18px_34px_rgba(183,50,99,0.16)] hover:-translate-y-1 transition-all">
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f4c6d9] via-[#dc7aa1] to-[#a73f70]" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-rose-200 bg-gradient-to-br from-[#ffe3ee] via-[#ffd7e7] to-[#ffc2d8] text-2xl shadow-[0_10px_18px_rgba(183,50,99,0.12)] transition-transform group-hover:scale-[1.03]">
+            {b.icon}
+          </div>
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#f0dbe4] bg-[#fff8fb] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#b14974]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#e58bb0]" />
+            Beneficio {index + 1}
+          </div>
+          <h3 className="font-extrabold text-[#2f2433] text-[1.03rem] leading-tight">{b.title}</h3>
+          <p className="mt-2 text-sm text-[#6c5867] leading-relaxed">{b.desc}</p>
+        </article>
       ))}
     </div>
   </section>
 )
 
 const Testimonials = () => (
-  <section className="py-10 px-4">
-    <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Lo que dicen las clientas 🗣️</h2>
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+  <section className="relative overflow-hidden py-12 px-4 md:px-7 rounded-[30px] border border-rose-100 bg-gradient-to-br from-[#fff5fb] via-[#fffdfd] to-[#fff2f8] shadow-[0_16px_34px_rgba(183,50,99,0.11)]">
+    <div className="pointer-events-none absolute -top-16 -left-10 h-40 w-40 rounded-full bg-gradient-to-br from-rose-200/30 to-pink-200/20 blur-2xl" />
+    <div className="pointer-events-none absolute -bottom-20 -right-12 h-48 w-48 rounded-full bg-gradient-to-tr from-fuchsia-200/25 to-rose-200/20 blur-3xl" />
+
+    <div className="relative text-center mb-9">
+      <span className="inline-flex rounded-full border border-rose-200 bg-white/90 px-4 py-1.5 text-[11px] font-bold tracking-[0.14em] uppercase text-[#b83263]">Reseñas reales</span>
+      <h2 className="text-3xl md:text-4xl font-bold text-[#2a1f2f] mt-3">Lo que dicen las clientas</h2>
+      <p className="text-sm text-[#6f5a67] mt-2">Experiencias verificadas de nuestra comunidad</p>
+    </div>
+
+    <div className="relative grid grid-cols-1 gap-5 md:grid-cols-3 max-w-6xl mx-auto">
       {[
-        { stars: '⭐⭐⭐⭐⭐', text: '"Quedé súper contenta, mis uñas quedaron bacanes. La chica fue muy simpática y prolija. 100 puntos po!"', name: 'María González', service: 'Uñas Acrílicas' },
-        { stars: '⭐⭐⭐⭐⭐', text: '"Me encantó, qué buena onda la manicurista. Volvería altiro, súper recomendada para las chiquillas."', name: 'Claudia Ramírez', service: 'Manicura Premium' },
-        { stars: '⭐⭐⭐⭐⭐', text: '"La mejor app que he encontrado en Chile. Se usa fácil y las profesionales cachan harto de su pega."', name: 'Andrea López', service: 'Spa de Manos' },
+        { stars: '★★★★★', text: '"Quedé súper contenta, mis uñas quedaron bacanes. La chica fue muy simpática y prolija. 100 puntos po!"', name: 'María González', service: 'Uñas Acrílicas' },
+        { stars: '★★★★★', text: '"Me encantó, qué buena onda la manicurista. Volvería altiro, súper recomendada para las chiquillas."', name: 'Claudia Ramírez', service: 'Manicura Premium' },
+        { stars: '★★★★★', text: '"La mejor app que he encontrado en Chile. Se usa fácil y las profesionales cachan harto de su pega."', name: 'Andrea López', service: 'Spa de Manos' },
       ].map(t => (
-        <div key={t.name} className="bg-white rounded-2xl p-6 shadow-sm border border-pink-50 flex flex-col gap-3 hover:shadow-md hover:-translate-y-1 transition-all">
-          <div className="text-yellow-400 text-lg">{t.stars}</div>
-          <p className="text-sm text-gray-600 leading-relaxed flex-1">{t.text}</p>
-          <div className="flex flex-col mt-auto pt-3 border-t border-pink-50">
-            <span className="font-bold text-sm text-gray-800">{t.name}</span>
-            <span className="text-xs text-gray-400">{t.service}</span>
+        <article key={t.name} className="p-[1px] rounded-2xl bg-gradient-to-b from-rose-200/60 to-rose-100/30">
+          <div className="h-full bg-white rounded-2xl p-6 flex flex-col gap-4 shadow-[0_8px_20px_rgba(183,50,99,0.10)] hover:shadow-[0_16px_30px_rgba(183,50,99,0.16)] transition-all hover:-translate-y-1">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#ffd9e9] to-[#ffc6dc] text-[#8f2c56] font-bold text-sm flex items-center justify-center border border-rose-200">
+                  {t.name.split(' ').map(part => part[0]).slice(0, 2).join('')}
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="font-bold text-sm text-[#2f2433] leading-tight">{t.name}</span>
+                  <span className="text-xs text-[#957b8a]">{t.service}</span>
+                </div>
+              </div>
+              <span className="text-[#d65a8c] text-3xl leading-none font-serif">“</span>
+            </div>
+
+            <div className="text-[#f2b437] text-base tracking-[0.2em]">{t.stars}</div>
+            <p className="text-base text-[#5f4c58] leading-relaxed flex-1">{t.text}</p>
           </div>
-        </div>
+        </article>
       ))}
     </div>
   </section>
@@ -1441,29 +1512,75 @@ const RegisterModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
 }
 
 const Footer = () => (
-  <footer className="bg-white border-t border-pink-100 mt-10 px-6 py-10">
-    <div className="flex flex-wrap gap-8 max-w-4xl mx-auto">
-      <div className="flex flex-col gap-2 flex-1 min-w-[150px]">
-        <h3 className="font-bold text-gray-800 mb-2">Mi Manicurista</h3>
-        <p className="text-sm text-gray-500">Conecta con los mejores profesionales de belleza en tu ciudad.</p>
-        <p className="text-xs text-gray-400 mt-2">Descubre servicios de calidad con profesionales verificados y reseñas reales.</p>
-      </div>
-      <div className="flex flex-col gap-2 flex-1 min-w-[150px]">
-        <h3 className="font-bold text-gray-800 mb-2">Síguenos</h3>
-        <div className="flex gap-3 mt-1">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-lg hover:bg-pink-100 hover:scale-110 transition-all" title="Instagram">📷</a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-lg hover:bg-pink-100 hover:scale-110 transition-all" title="Facebook">👍</a>
-          <a href="https://wa.me/56" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-lg hover:bg-pink-100 hover:scale-110 transition-all" title="WhatsApp">💬</a>
+  <footer className="mt-16 px-4 pb-10 pt-0">
+    <div className="max-w-6xl mx-auto overflow-hidden rounded-[32px] border border-[#e7d1de] bg-gradient-to-br from-[#fff9fc] via-[#ffeef7] to-[#ffe4f2] shadow-[0_20px_42px_rgba(156,67,115,0.18)]">
+      <div className="h-2.5 bg-gradient-to-r from-[#f7c7dd] via-[#dc6f9f] to-[#a73f70]" />
+
+      <div className="px-7 md:px-12 py-11">
+        <div className="grid grid-cols-1 md:grid-cols-[1.6fr_0.9fr_1fr] gap-10 md:gap-8 items-start">
+          <div className="flex flex-col gap-4.5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#965e7b]">Plataforma de belleza en Chile</p>
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#e07aa8] to-[#b2477a] text-white flex items-center justify-center text-sm font-extrabold shadow-[0_8px_20px_rgba(178,71,122,0.38)]">MM</div>
+              <h3 className="text-[2.1rem] font-extrabold tracking-[-0.02em] text-transparent bg-clip-text bg-gradient-to-r from-[#3a2436] via-[#8a2f61] to-[#b2477a]">Mi Manicurista</h3>
+            </div>
+            <p className="text-lg text-[#593f52] leading-relaxed max-w-[42ch]">Encuentra profesionales verificadas, compara servicios y agenda tu cita con una experiencia <span className="font-bold text-[#a73f70]">premium, simple y segura</span>.</p>
+            <p className="text-sm text-[#876579] max-w-[50ch]">Diseñado para clientas y profesionales que buscan resultados reales y una marca con estilo.</p>
+          </div>
+
+          <div className="md:pl-6 md:border-l md:border-[#ecdce4] flex flex-col gap-4">
+            <h4 className="text-sm font-bold text-[#2c1f2f] uppercase tracking-[0.14em] flex items-center gap-2">
+              <span className="w-5 h-5 rounded-full bg-[#f3d4e3] text-[#9f3c68] inline-flex items-center justify-center text-[11px]">✦</span>
+              Síguenos
+            </h4>
+            <div className="flex flex-col gap-2 text-sm">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit items-center gap-2 rounded-full border border-[#e8d6df] bg-gradient-to-r from-white/95 to-[#ffeef6] px-4 py-2 text-[#584656] hover:border-[#cf6a98] hover:text-[#9f3c68] hover:bg-white transition-colors">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#f9d3e5] to-[#ebabc9] text-[#8d325f] text-[10px] font-bold inline-flex items-center justify-center">IG</span>
+                Instagram
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit items-center gap-2 rounded-full border border-[#e8d6df] bg-gradient-to-r from-white/95 to-[#ffeef6] px-4 py-2 text-[#584656] hover:border-[#cf6a98] hover:text-[#9f3c68] hover:bg-white transition-colors">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#f9d3e5] to-[#ebabc9] text-[#8d325f] text-[10px] font-bold inline-flex items-center justify-center">FB</span>
+                Facebook
+              </a>
+              <a href="https://wa.me/56" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit items-center gap-2 rounded-full border border-[#e8d6df] bg-gradient-to-r from-white/95 to-[#ffeef6] px-4 py-2 text-[#584656] hover:border-[#cf6a98] hover:text-[#9f3c68] hover:bg-white transition-colors">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#f9d3e5] to-[#ebabc9] text-[#8d325f] text-[10px] font-bold inline-flex items-center justify-center">WA</span>
+                WhatsApp
+              </a>
+            </div>
+            <p className="text-xs text-[#956277]">Novedades, promociones y contenido diario.</p>
+          </div>
+
+          <div className="rounded-2xl border border-[#ecdce4] bg-gradient-to-br from-white/95 to-[#fff0f7] backdrop-blur-sm p-5 flex flex-col gap-3 shadow-[0_8px_20px_rgba(172,86,129,0.12)]">
+            <h4 className="text-sm font-bold text-[#2c1f2f] uppercase tracking-[0.14em] flex items-center gap-2">
+              <span className="w-5 h-5 rounded-full bg-[#f3d4e3] text-[#9f3c68] inline-flex items-center justify-center text-[11px]">✉</span>
+              Contacto
+            </h4>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-[11px] uppercase tracking-[0.1em] text-[#927c8b] flex items-center gap-1.5">
+                <span className="w-4 h-4 rounded-full bg-[#f7e5ee] text-[#9f3c68] text-[9px] inline-flex items-center justify-center">@</span>
+                Email
+              </p>
+              <a href="mailto:friquelmepierattini@gmail.com" className="text-[#584656] hover:text-[#9f3c68] transition-colors break-all font-medium">friquelmepierattini@gmail.com</a>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-[11px] uppercase tracking-[0.1em] text-[#927c8b] flex items-center gap-1.5">
+                <span className="w-4 h-4 rounded-full bg-[#f7e5ee] text-[#9f3c68] text-[8px] font-bold inline-flex items-center justify-center">WA</span>
+                WhatsApp
+              </p>
+              <a href="https://wa.me/56972821003" className="text-[#584656] hover:text-[#9f3c68] transition-colors font-medium">+56 9 7282 1003</a>
+            </div>
+            <p className="text-[11px] uppercase tracking-[0.1em] text-[#8f7888] pt-1 flex items-center gap-1.5">
+              <span className="w-4 h-4 rounded-full bg-[#f7e5ee] text-[#9f3c68] text-[9px] inline-flex items-center justify-center">⏰</span>
+              Lunes a domingo
+            </p>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 flex-1 min-w-[150px]">
-        <h3 className="font-bold text-gray-800 mb-2">Contacto</h3>
-        <p><a href="mailto:friquelmepierattini@gmail.com" className="text-sm text-gray-500 hover:text-[#e91e63] transition-colors">📧 friquelmepierattini@gmail.com</a></p>
-        <p><a href="https://wa.me/56972821003" className="text-sm text-gray-500 hover:text-[#e91e63] transition-colors">📞 +56 9 7282 1003</a></p>
+
+      <div className="px-7 md:px-12 py-4 border-t border-[#e7d6df] bg-gradient-to-r from-white/70 to-[#fff1f8] flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-xs text-[#856f7f]">
+        <p>&copy; 2026 Mi Manicurista. Todos los derechos reservados.</p>
+        <p className="inline-flex items-center gap-1.5">🇨🇱 Hecho en Chile</p>
       </div>
-    </div>
-    <div className="text-center text-xs text-gray-400 mt-8 pt-4 border-t border-pink-50">
-      <p>&copy; 2026 Mi Manicurista. Todos los derechos reservados.</p>
     </div>
   </footer>
 )
