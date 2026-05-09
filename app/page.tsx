@@ -39,14 +39,14 @@ const menuItems: MenuItem[] = [
 ]
 
 const Sidebar = ({ onMenuClick }: { onMenuClick: (label: string) => void }) => (
-  <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[135px] bg-gradient-to-b from-pink-100 via-rose-50 to-fuchsia-50 backdrop-blur-md flex-col items-center py-6 px-2.5 gap-3 border-r-2 border-pink-200 shadow-xl z-[200] overflow-y-auto">
-    <h4 className="text-[10px] text-[#e91e63] uppercase tracking-[2px] font-bold font-sans">Menú</h4>
+  <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[140px] bg-gradient-to-b from-rose-50 via-pink-50 to-white backdrop-blur-md flex-col items-center py-6 px-2.5 gap-3 border-r border-rose-100 shadow-[0_18px_40px_rgba(183,50,99,0.10)] z-[200] overflow-y-auto">
+    <h4 className="text-[10px] text-[#b83263] uppercase tracking-[2px] font-bold font-sans">Menú</h4>
     <ul className="list-none w-full flex flex-col gap-2 p-0 m-0">
       {menuItems.map((item) => (
         <li
           key={item.label}
           onClick={() => onMenuClick(item.label)}
-          className="flex flex-col items-center justify-center gap-1 h-[100px] w-full text-[11px] font-semibold text-gray-700 bg-gradient-to-br from-white to-pink-50 border border-pink-200 rounded-[22px] cursor-pointer shadow-[0_8px_20px_rgba(233,30,99,0.12)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:text-[#e91e63] hover:bg-gradient-to-br hover:from-pink-50 hover:to-rose-100 hover:border-pink-300 hover:shadow-[0_14px_32px_rgba(233,30,99,0.22)]"
+          className="flex flex-col items-center justify-center gap-1 h-[98px] w-full text-[11px] font-semibold text-[#4a3b4a] bg-gradient-to-br from-white to-rose-50/70 border border-rose-100 rounded-[20px] cursor-pointer shadow-[0_8px_20px_rgba(183,50,99,0.10)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:text-[#b83263] hover:bg-gradient-to-br hover:from-rose-50 hover:to-pink-100/70 hover:border-rose-200 hover:shadow-[0_14px_32px_rgba(183,50,99,0.18)]"
         >
           <span className="text-[26px] mb-0.5 transition-transform group-hover:scale-110">{item.icon}</span>
           {item.label}
@@ -97,20 +97,20 @@ const RightSidebar = ({ onRegisterClick }: { onRegisterClick: () => void }) => {
   const item = popularesItems.find(i => i.n === seleccionado)
 
   return (
-  <aside className="hidden lg:flex fixed top-0 right-0 h-screen w-[190px] bg-gradient-to-b from-white via-pink-50 to-rose-50 backdrop-blur-md flex-col py-6 px-3.5 gap-4 border-l-2 border-pink-200 shadow-2xl z-[200] overflow-y-auto">
+  <aside className="hidden lg:flex fixed top-0 right-0 h-screen w-[215px] bg-gradient-to-b from-white via-rose-50/60 to-pink-50 backdrop-blur-md flex-col py-6 px-3.5 gap-4 border-l border-rose-100 shadow-[0_20px_40px_rgba(183,50,99,0.12)] z-[200] overflow-y-auto">
 
     {/* Stats */}
-    <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-4 border border-pink-200 shadow-sm">
-      <h3 className="text-[11px] font-extrabold text-[#e91e63] uppercase tracking-widest mb-3">¿Por qué nosotros?</h3>
+    <div className="bg-gradient-to-br from-white to-rose-50 rounded-2xl p-4 border border-rose-100 shadow-sm">
+      <h3 className="text-[11px] font-extrabold text-[#b83263] uppercase tracking-widest mb-3">¿Por qué nosotros?</h3>
       {[
         { n: '500+', l: 'Profesionales', icon: '👩‍🎨' },
         { n: '4.8', l: 'Calificación', icon: '⭐' },
         { n: '10K+', l: 'Clientes felices', icon: '💖' },
       ].map(s => (
-        <div key={s.l} className="flex items-center gap-2.5 py-2.5 border-b border-pink-100 last:border-0">
-          <span className="w-9 h-9 rounded-xl bg-white shadow-sm flex items-center justify-center text-lg border border-pink-100">{s.icon}</span>
+        <div key={s.l} className="flex items-center gap-2.5 py-2.5 border-b border-rose-100/70 last:border-0">
+          <span className="w-9 h-9 rounded-xl bg-white shadow-sm flex items-center justify-center text-lg border border-rose-100">{s.icon}</span>
           <div>
-            <div className="text-base font-extrabold text-[#e91e63] leading-none">{s.n}</div>
+            <div className="text-base font-extrabold text-[#b83263] leading-none">{s.n}</div>
             <div className="text-[10px] text-gray-500 mt-0.5 font-medium">{s.l}</div>
           </div>
         </div>
@@ -118,42 +118,44 @@ const RightSidebar = ({ onRegisterClick }: { onRegisterClick: () => void }) => {
     </div>
 
     {/* Populares */}
-    <div className="bg-gradient-to-br from-pink-50 to-fuchsia-50 rounded-2xl p-4 border border-pink-200 shadow-sm">
-      <h3 className="text-[11px] font-extrabold text-[#e91e63] uppercase tracking-widest mb-3">Populares</h3>
+    <div className="bg-gradient-to-br from-rose-50/80 to-pink-50 rounded-2xl p-4 border border-rose-100 shadow-sm">
+      <h3 className="text-[11px] font-extrabold text-[#b83263] uppercase tracking-widest mb-3">Populares</h3>
       {popularesItems.map(s => (
         <div
           key={s.n}
           onClick={() => setSeleccionado(seleccionado === s.n ? null : s.n)}
-          className={`flex items-center gap-2.5 py-2 border-b border-pink-100 last:border-0 cursor-pointer group transition-all ${seleccionado === s.n ? 'bg-pink-100 -mx-2 px-2 rounded-xl' : ''}`}
+          className={`flex items-center gap-2.5 py-2 border-b border-rose-100/70 last:border-0 cursor-pointer group transition-all ${seleccionado === s.n ? 'bg-rose-100/80 -mx-2 px-2 rounded-xl' : ''}`}
         >
-          <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-base border transition-colors ${seleccionado === s.n ? 'bg-[#e91e63] border-pink-500 text-white' : 'bg-white border-pink-100 group-hover:bg-pink-100'}`}>{s.e}</span>
-          <span className={`text-[12px] font-semibold transition-colors leading-tight ${seleccionado === s.n ? 'text-[#e91e63]' : 'text-gray-700 group-hover:text-[#e91e63]'}`}>{s.n}</span>
+          <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-base border transition-colors ${seleccionado === s.n ? 'bg-[#c74372] border-rose-400 text-white' : 'bg-white border-rose-100 group-hover:bg-rose-100/70'}`}>{s.e}</span>
+          <span className={`text-[12px] font-semibold transition-colors leading-tight ${seleccionado === s.n ? 'text-[#b83263]' : 'text-[#4a3b4a] group-hover:text-[#b83263]'}`}>{s.n}</span>
         </div>
       ))}
 
       {/* Fotos del item seleccionado */}
       {item && (
         <div className="mt-3 flex flex-col gap-2">
-          <p className="text-[10px] font-bold text-pink-400 uppercase tracking-wide">{item.n}</p>
+          <p className="text-[10px] font-bold text-[#b83263] uppercase tracking-wide">{item.n}</p>
+          <div className="grid grid-cols-2 gap-2">
           {item.fotos.map((f, i) => (
             <img
               key={i}
               src={f}
               alt={item.n}
-              className="w-full h-[100px] object-cover rounded-xl border border-pink-200 shadow-sm hover:scale-[1.02] transition-transform"
+              className="w-full aspect-[4/3] object-cover object-center rounded-xl border border-rose-100 shadow-sm hover:scale-[1.02] transition-transform"
             />
           ))}
+          </div>
         </div>
       )}
     </div>
 
     {/* CTA */}
-    <div className="bg-gradient-to-br from-[#e91e63] to-[#c2185b] rounded-2xl p-5 text-white text-center shadow-[0_10px_30px_rgba(233,30,99,0.3)]">
+    <div className="bg-gradient-to-br from-[#ffdce7] via-[#ffc8da] to-[#ffb3cd] rounded-2xl p-5 text-[#7a2b4c] text-center shadow-[0_10px_30px_rgba(199,67,114,0.18)] border border-[#f7b7cc]">
       <div className="text-3xl mb-2">💅</div>
       <h4 className="font-extrabold text-sm mb-1 leading-tight">¿Eres Profesional?</h4>
       <p className="text-[11px] opacity-80 mb-4 leading-snug">Únete y llega a más clientas</p>
       <button
-        className="bg-white text-[#e91e63] font-extrabold text-xs px-4 py-2.5 rounded-xl hover:scale-105 hover:shadow-lg transition-all cursor-pointer border-none w-full shadow-sm"
+        className="bg-white text-[#b83263] font-extrabold text-xs px-4 py-2.5 rounded-xl hover:scale-105 hover:shadow-lg transition-all cursor-pointer border-none w-full shadow-sm"
         onClick={onRegisterClick}
       >Registrarse ahora</button>
     </div>
@@ -162,19 +164,19 @@ const RightSidebar = ({ onRegisterClick }: { onRegisterClick: () => void }) => {
 }
 
 const HeroSection = () => (
-  <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-    <div className="w-full h-[320px] sm:h-[270px] lg:h-[260px] rounded-[20px] overflow-hidden shadow-[0_12px_25px_rgba(0,0,0,0.08)] transition-transform hover:scale-[1.02] animate-[floatUp_3s_ease-in-out_infinite]">
+  <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+    <div className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/9] rounded-[20px] overflow-hidden border border-rose-100 shadow-[0_14px_28px_rgba(74,59,74,0.10)] transition-transform hover:scale-[1.01]">
       <img
         src="https://images.unsplash.com/photo-1604654894610-df63bc536371"
         alt="Hero 1"
-        className="w-full h-full object-cover object-[42%_66%]"
+        className="w-full h-full object-cover object-center"
       />
     </div>
-    <div className="w-full h-[320px] sm:h-[270px] lg:h-[260px] rounded-[20px] overflow-hidden shadow-[0_12px_25px_rgba(0,0,0,0.08)] transition-transform hover:scale-[1.02] animate-[floatUp_3.5s_ease-in-out_infinite_0.3s]">
+    <div className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/9] rounded-[20px] overflow-hidden border border-rose-100 shadow-[0_14px_28px_rgba(74,59,74,0.10)] transition-transform hover:scale-[1.01]">
       <img
         src="https://images.unsplash.com/photo-1610992015732-2449b76344bc"
         alt="Hero 2"
-        className="w-full h-full object-cover object-[52%_42%]"
+        className="w-full h-full object-cover object-center"
       />
     </div>
   </section>
@@ -222,22 +224,22 @@ const ServiceGallery = () => {
 
   return (
     <section className="px-1">
-      <h2 className="text-2xl font-bold text-gray-800 mb-1">Galería de Nuestros Servicios</h2>
+      <h2 className="text-2xl font-bold text-[#2a1f2f] mb-1">Galería de Nuestros Servicios</h2>
       <p className="text-sm text-gray-400 mb-5">Explora nuestro portafolio de trabajos profesionales</p>
       <div className="flex flex-wrap gap-2 mb-6">
         {filters.map(f => (
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-full text-xs font-semibold border-2 transition-all cursor-pointer ${filter === f.key ? 'border-[#e91e63] bg-[#e91e63] text-white shadow-md' : 'border-pink-100 text-gray-600 bg-white hover:border-pink-400 hover:text-[#e91e63]'}`}
+            className={`px-4 py-2 rounded-full text-xs font-semibold border-2 transition-all cursor-pointer ${filter === f.key ? 'border-[#b83263] bg-[#c74372] text-white shadow-md' : 'border-rose-100 text-gray-600 bg-white hover:border-rose-300 hover:text-[#b83263]'}`}
           >{f.label}</button>
         ))}
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {filtered.map((item, index) => (
-          <div key={item.id} className="rounded-2xl overflow-hidden group cursor-pointer shadow-sm border border-pink-50" style={{ animationDelay: `${index * 0.1}s` }}>
+          <div key={item.id} className="rounded-2xl overflow-hidden group cursor-pointer shadow-sm border border-rose-100/70" style={{ animationDelay: `${index * 0.1}s` }}>
             <div className="relative">
-              <img src={item.image} alt={item.title} className="w-full h-28 object-cover transition-transform duration-300 group-hover:scale-[1.06]" />
+              <img src={item.image} alt={item.title} className="w-full aspect-[4/3] object-cover object-center transition-transform duration-300 group-hover:scale-[1.04]" />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-1.5">
                 <span className="text-white text-[10px] font-semibold leading-tight line-clamp-1">{item.title}</span>
               </div>
@@ -432,15 +434,20 @@ const PromoBanner = () => {
 
   return (
     <>
-      <section className="bg-gradient-to-r from-fuchsia-500 via-pink-500 to-rose-500 rounded-3xl py-10 px-6 text-center text-white my-8 shadow-[0_20px_60px_rgba(233,30,99,0.35)]">
-        <div className="max-w-lg mx-auto">
-          <h2 className="text-2xl font-extrabold mb-3">🎉 Oferta especial para nuevas clientas</h2>
-          <p className="text-base opacity-90 mb-6">
-            Lleva un <span className="font-extrabold text-2xl">20% de descuento</span> en tu primer servicio
+      <section className="relative overflow-hidden rounded-[32px] border border-rose-200/80 bg-gradient-to-r from-[#ffe8f1] via-[#ffddea] to-[#ffd2e4] py-10 px-6 md:px-10 text-center my-8 shadow-[0_18px_44px_rgba(183,50,99,0.18)]">
+        <div className="pointer-events-none absolute -top-20 -left-14 h-44 w-44 rounded-full bg-gradient-to-br from-white/70 to-pink-200/40 blur-2xl" />
+        <div className="pointer-events-none absolute -bottom-24 -right-12 h-52 w-52 rounded-full bg-gradient-to-tr from-rose-200/45 to-fuchsia-200/35 blur-2xl" />
+        <div className="relative max-w-2xl mx-auto">
+          <span className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/75 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b83263]">
+            <span>Oferta exclusiva</span>
+          </span>
+          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-[#64253f] leading-tight">🎉 Oferta especial para nuevas clientas</h2>
+          <p className="mt-4 text-lg text-[#6b4257] leading-relaxed">
+            Lleva un <span className="inline-block rounded-xl bg-white/80 px-3 py-1 font-extrabold text-[#b83263] shadow-sm">20% de descuento</span> en tu primer servicio
           </p>
           <button
             onClick={() => setShowCoupon(true)}
-            className="bg-white text-[#e91e63] font-extrabold px-8 py-3 rounded-full text-sm hover:scale-105 transition-transform cursor-pointer border-none shadow-lg"
+            className="mt-7 bg-gradient-to-r from-[#d25986] to-[#b83263] text-white font-extrabold px-9 py-3.5 rounded-full text-sm hover:scale-[1.03] transition-transform cursor-pointer border border-[#a8305c] shadow-[0_12px_26px_rgba(184,50,99,0.32)]"
           >
             ¡Quiero mi descuento! 🎉
           </button>
@@ -2183,7 +2190,7 @@ export default function Page() {
   }
 
   return (
-    <div className="max-w-[1400px] mx-auto px-3 sm:px-5 lg:pl-[155px] lg:pr-[210px] flex flex-col">
+    <div className="relative max-w-[1420px] mx-auto px-3 sm:px-6 lg:pl-[165px] lg:pr-[220px] py-3 sm:py-5 flex flex-col">
       <QuienesSomosModal isOpen={showQuienesSomos} onClose={() => setShowQuienesSomos(false)} />
       <ServiciosModal isOpen={showServicios} onClose={() => setShowServicios(false)} />
       <ReseñasModal isOpen={showReseñas} onClose={() => setShowReseñas(false)} />
@@ -2217,7 +2224,7 @@ export default function Page() {
 
       <div className="flex gap-4">
         <Sidebar onMenuClick={handleMenuClick} />
-        <main className="flex-1 px-1 sm:px-5 py-4">
+        <main className="flex-1 px-2 sm:px-6 py-5 bg-white/55 backdrop-blur-sm border border-rose-100/70 rounded-[28px] shadow-[0_14px_40px_rgba(199,67,114,0.10)]">
           <ServiceGallery />
         </main>
         <RightSidebar onRegisterClick={() => setShowRegisterModal(true)} />
